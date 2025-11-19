@@ -3,28 +3,35 @@ session_start();
 include '../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = trim(strtolower($_POST['username']));
+    $password = trim($_POST['password']);
 
     // Prepare and execute query
-    $stmt = $conn->prepare("SELECT id, password FROM admins WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            $_SESSION['admin_id'] = $row['id'];
-            header("Location: dashboard.php");
-            exit();
-        } else {
-            $error = "Invalid password.";
-        }
+    $stmt = $conn->prepare("SELECT id, password FROM admins WHERE LOWER(username) = ?");
+    if (!$stmt) {
+        $error = "Database error: Unable to prepare query.";
     } else {
-        $error = "Invalid username.";
+        $stmt->bind_param("s", $username);
+        if (!$stmt->execute()) {
+            $error = "Database error: Unable to execute query.";
+        } else {
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                if (password_verify($password, $row['password'])) {
+                    $_SESSION['admin_id'] = $row['id'];
+                    header("Location: dashboard.php");
+                    exit();
+                } else {
+                    $error = "Invalid password.";
+                }
+            } else {
+                $error = "Invalid username.";
+            }
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 ?>
 

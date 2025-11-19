@@ -1,6 +1,6 @@
 -- Database schema for Food Delivery Admin Panel
 
-CREATE DATABASE IF NOT EXISTS food_delivery_admin;
+CREATE DATABASE food_delivery_admin;
 
 USE food_delivery_admin;
 

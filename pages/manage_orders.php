@@ -39,52 +39,71 @@ $result = $conn->query("SELECT orders.*, restaurants.name as restaurant_name FRO
 </head>
 <body>
     <div class="dashboard">
-        <header>
-            <h1>Manage Orders</h1>
-            <a href="dashboard.php">Back to Dashboard</a>
-        </header>
-        <main>
-            <h2>Add New Order</h2>
-            <form method="POST" action="">
-                <input type="text" name="customer_name" placeholder="Customer Name" required>
-                <select name="restaurant_id" required>
-                    <option value="">Select Restaurant</option>
-                    <?php
-                    $restaurants = $conn->query("SELECT id, name FROM restaurants");
-                    while ($restaurant = $restaurants->fetch_assoc()) {
-                        echo "<option value='{$restaurant['id']}'>{$restaurant['name']}</option>";
-                    }
-                    ?>
-                </select>
-                <textarea name="order_details" placeholder="Order Details" required></textarea>
-                <input type="number" step="0.01" name="total_amount" placeholder="Total Amount" required>
-                <button type="submit" name="add_order">Add Order</button>
-            </form>
+        <div class="sidebar">
+            <h1>Food Delivery Admin</h1>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.php">🏠 Dashboard</a></li>
+                    <li><a href="manage_users.php">👥 Manage Users</a></li>
+                    <li><a href="manage_restaurants.php">🏪 Manage Restaurants</a></li>
+                    <li><a href="manage_orders.php">📦 Manage Orders</a></li>
+                    <li><a href="logout.php">🚪 Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <header>
+                <h1>Manage Orders</h1>
+                <div class="user-info">
+                    <span>👤 Admin</span>
+                </div>
+            </header>
+            <main>
+                <h2>Add New Order</h2>
+                <form method="POST" action="">
+                    <input type="text" name="customer_name" placeholder="Customer Name" required>
+                    <select name="restaurant_id" required>
+                        <option value="">Select Restaurant</option>
+                        <?php
+                        $restaurants = $conn->query("SELECT id, name FROM restaurants");
+                        while ($restaurant = $restaurants->fetch_assoc()) {
+                            echo "<option value='{$restaurant['id']}'>{$restaurant['name']}</option>";
+                        }
+                        ?>
+                    </select>
+                    <textarea name="order_details" placeholder="Order Details" required></textarea>
+                    <input type="number" step="0.01" name="total_amount" placeholder="Total Amount" required>
+                    <button type="submit" name="add_order">Add Order</button>
+                </form>
 
-            <h2>Existing Orders</h2>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Customer</th>
-                    <th>Restaurant</th>
-                    <th>Details</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td><?php echo $row['id']; ?></td>
-                    <td><?php echo $row['customer_name']; ?></td>
-                    <td><?php echo $row['restaurant_name']; ?></td>
-                    <td><?php echo $row['order_details']; ?></td>
-                    <td>$<?php echo $row['total_amount']; ?></td>
-                    <td><?php echo $row['status']; ?></td>
-                    <td><a href="?delete=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">Delete</a></td>
-                </tr>
-                <?php endwhile; ?>
-            </table>
-        </main>
+                <h2>Existing Orders</h2>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Restaurant</th>
+                        <th>Details</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo $row['customer_name']; ?></td>
+                        <td><?php echo $row['restaurant_name']; ?></td>
+                        <td><?php echo $row['order_details']; ?></td>
+                        <td>$<?php echo $row['total_amount']; ?></td>
+                        <td><?php echo $row['status']; ?></td>
+                        <td><a href="?delete=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">🗑️ Delete</a></td>
+                    </tr>
+                    <?php endwhile; ?>
+                </table>
+            </main>
+            <footer>
+                &copy; 2023 Food Delivery Admin Panel. All rights reserved.
+            </footer>
+        </div>
     </div>
 </body>
 </html>

@@ -6,5 +6,5 @@
 - [x] Fetch additional data in PHP: Counts for metrics, monthly revenue data, order summary data (by status).
 
 ## Followup Steps
-- [ ] Test the dashboard for responsiveness and data accuracy.
-- [ ] Ensure charts load properly.
+- [x] Test the dashboard for responsiveness and data accuracy.
+- [x] Ensure charts load properly.

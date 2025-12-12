@@ -1,13 +1,10 @@
-# Admin Panel Development TODO
+# TODO: Modern Admin Dashboard UI
 
-- [x] Create project structure (directories: assets, config, pages, database)
-- [x] Create database schema (database/schema.sql)
-- [x] Create database connection (config/db.php)
-- [x] Create entry point (index.php)
-- [x] Create login page (pages/login.php)
-- [x] Create dashboard page (pages/dashboard.php)
-- [x] Create user management page (pages/manage_users.php)
-- [x] Create restaurant management page (pages/manage_restaurants.php)
-- [x] Create order management page (pages/manage_orders.php)
-- [x] Create CSS styling (assets/style.css)
-- [x] Create JavaScript (assets/script.js)
+## Tasks
+- [x] Update pages/dashboard.php: Make sidebar dark with icons, header with title and user avatar, add four metric cards (Total Menus/Restaurants, Orders, Clients/Customers, Revenue) each with a small progress bar, add Revenue line chart (monthly) and Order Summary bar chart (by status). Include Chart.js script.
+- [x] Update assets/style.css: Change to light background, pastel accent colors, add styles for progress bars, charts, ensure responsive with Tailwind-style spacing.
+- [x] Fetch additional data in PHP: Counts for metrics, monthly revenue data, order summary data (by status).
+
+## Followup Steps
+- [ ] Test the dashboard for responsiveness and data accuracy.
+- [ ] Ensure charts load properly.
